@@ -1,0 +1,201 @@
+const Alexa = require('ask-sdk-core');
+
+const LaunchRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Welcome to the basic calculator!';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+const AddHandler = {
+    canHandle(handlerInput) {
+        
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'Add';
+    },
+    handle(handlerInput) {
+        
+        let numberoneSlot = handlerInput.requestEnvelope.request.intent.slots.numberone.value;
+		
+		let numbertwoSlot = handlerInput.requestEnvelope.request.intent.slots.numbertwo.value;
+		
+        let a = parseInt(numberoneSlot,10) + parseInt(numbertwoSlot,10);
+		
+		 let speechOutput = "The answer is "+a;
+	
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            
+            .getResponse();
+    }
+};
+const SubtractHandler = {
+    canHandle(handlerInput) {
+        
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'Subtract';
+    },
+    handle(handlerInput) {
+        
+        let numberoneSlot = handlerInput.requestEnvelope.request.intent.slots.numberone.value;
+		
+		let numbertwoSlot = handlerInput.requestEnvelope.request.intent.slots.numbertwo.value;
+		
+        let a = parseInt(numberoneSlot,10) - parseInt(numbertwoSlot,10);
+		
+		 let speechOutput = "The answer is "+a;
+	
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            
+            .getResponse();
+    }
+};
+const MultiplyHandler = {
+    canHandle(handlerInput) {
+        
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'Multiply';
+    },
+    handle(handlerInput) {
+        
+        let numberoneSlot = handlerInput.requestEnvelope.request.intent.slots.numberone.value;
+		
+		let numbertwoSlot = handlerInput.requestEnvelope.request.intent.slots.numbertwo.value;
+		
+        let a = parseInt(numberoneSlot,10) * parseInt(numbertwoSlot,10);
+		
+		 let speechOutput = "The answer is "+a;
+	
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            
+            .getResponse();
+    }
+};
+const DivideHandler = {
+    canHandle(handlerInput) {
+        
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.request.intent.name === 'Divide';
+    },
+    handle(handlerInput) {
+        
+        let numberoneSlot = handlerInput.requestEnvelope.request.intent.slots.numberone.value;
+		
+		let numbertwoSlot = handlerInput.requestEnvelope.request.intent.slots.numbertwo.value;
+		
+        let a = parseInt(numberoneSlot,10) / parseInt(numbertwoSlot,10);
+		
+		 let speechOutput = "The answer is "+a;
+	
+        return handlerInput.responseBuilder
+            .speak(speechOutput)
+            
+            .getResponse();
+    }
+};
+const CancelIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && (handlerInput.requestEnvelope.intent.name === 'AMAZON.CancelIntent');
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Goodbye!';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+            && handlerInput.requestEnvelope.intent.name === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'You can say hello to me! How can I help?';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+const StopIntentHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                && handlerInput.requestEnvelope.intent.name === 'AMAZON.StopIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Goodbye!';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+const SessionEndedRequestHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    },
+    handle(handlerInput) {
+        // Any cleanup logic goes here.
+        return handlerInput.responseBuilder.getResponse();
+    }
+};
+
+
+const IntentReflectorHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'IntentRequest';
+    },
+    handle(handlerInput) {
+        const intentName = handlerInput.requestEnvelope.intent.name;
+        const speakOutput = `You just triggered ${intentName}`;
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            
+            .getResponse();
+    }
+};
+
+
+const ErrorHandler = {
+    canHandle() {
+        return true;
+    },
+    handle(handlerInput, error) {
+        console.log(`~~~~ Error handled: ${error.stack}`);
+        const speakOutput = `Sorry, I had trouble doing what you asked. Please try again.`;
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+
+exports.handler = Alexa.SkillBuilders.custom()
+    .addRequestHandlers(
+        LaunchRequestHandler,
+        AddHandler,
+        SubtractHandler,
+        MultiplyHandler,
+        DivideHandler,
+        CancelIntentHandler,
+        HelpIntentHandler,
+        StopIntentHandler,
+        SessionEndedRequestHandler,
+        IntentReflectorHandler, // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
+        ) 
+    .addErrorHandlers(
+        ErrorHandler,
+        )
+    .lambda();
