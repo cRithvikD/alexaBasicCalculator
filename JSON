@@ -1,0 +1,102 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "calculator",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "Add",
+                    "slots": [
+                        {
+                            "name": "numberone",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "numbertwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{numberone} plus {numbertwo} equals to",
+                        "What is {numberone} plus {numbertwo}",
+                        "Let's add {numberone} and {numbertwo}",
+                        "What is the sum of {numberone} and {numbertwo}",
+                        "Add {numberone} and {numbertwo}"
+                    ]
+                },
+                {
+                    "name": "Subtract",
+                    "slots": [
+                        {
+                            "name": "numbertwo",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "numberone",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "Can I have the difference between {numberone} and {numbertwo}",
+                        "What is the difference between {numberone} and {numbertwo}",
+                        "{numberone} minus {numbertwo} equals to",
+                        "Subtract {numbertwo} from {numberone}"
+                    ]
+                },
+                {
+                    "name": "Multiply",
+                    "slots": [
+                        {
+                            "name": "numberone",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "numbertwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "Product of {numberone} and {numbertwo} equals",
+                        "What is the product of {numberone} and {numbertwo}",
+                        "Multiply {numberone} and {numbertwo}"
+                    ]
+                },
+                {
+                    "name": "Divide",
+                    "slots": [
+                        {
+                            "name": "numberone",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "numbertwo",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{numberone} divided by {numbertwo} is equal to",
+                        "What is the quotient when {numberone} is divided by {numbertwo}",
+                        "What is {numberone} divided by {numbertwo}",
+                        "Divde {numberone} by {numbertwo}"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
